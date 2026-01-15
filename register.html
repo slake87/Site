@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Реєстрація | Будівельний калькулятор</title>
+  <link rel="stylesheet" href="styles/style2.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+  <div class="registration-container">
+    <div class="header">
+      <div class="logo">
+        <i class="fas fa-calculator"></i>
+      </div>
+      <h1>Створення облікового запису</h1>
+      <p>Розпочніть роботу з будівельним калькулятором</p>
+    </div>
+
+    <div class="form-container">
+      <form id="registrationForm">
+        <div class="form-group">
+          <label for="username">Ім’я користувача</label>
+          <i class="fas fa-user input-icon"></i>
+          <input type="text" id="username" required placeholder="Ваш нікнейм" />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Електронна пошта</label>
+          <i class="fas fa-envelope input-icon"></i>
+          <input type="email" id="email" required placeholder="Ваша електронна пошта" />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Пароль</label>
+          <i class="fas fa-lock input-icon"></i>
+          <input type="password" id="password" required placeholder="Створіть надійний пароль" />
+          <i class="fas fa-eye password-toggle" id="togglePassword"></i>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Підтвердження пароля</label>
+          <i class="fas fa-lock input-icon"></i>
+          <input type="password" id="confirmPassword" required placeholder="Повторіть ваш пароль" />
+          <div class="error-message" id="passwordError">Паролі не співпадають!</div>
+        </div>
+
+        <button type="submit" class="register-button" id="registerButton">
+          <i class="fas fa-user-plus"></i> Зареєструватися
+        </button>
+
+        <div class="progress-container" id="progressContainer">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="success-message" id="successMessage">
+          <i class="fas fa-check-circle"></i> Реєстрація успішна! Дані збережено в базу даних.
+        </div>
+
+        <div class="login-link">
+          Вже маєте акаунт? <a href="login.php">Увійти</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Перемикання видимості пароля
+    document.getElementById('togglePassword').addEventListener('click', function () {
+      const passwordInput = document.getElementById('password');
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      this.classList.toggle('fa-eye');
+      this.classList.toggle('fa-eye-slash');
+    });
+
+    // Перевірка відповідності паролів
+    document.getElementById('confirmPassword').addEventListener('input', function () {
+      const password = document.getElementById('password').value;
+      const confirmPassword = this.value;
+      const passwordError = document.getElementById('passwordError');
+
+      if (password !== confirmPassword && confirmPassword !== '') {
+        this.style.borderColor = '#dc3545';
+        passwordError.style.display = 'block';
+      } else {
+        this.style.borderColor = password ? '#28a745' : '#ddd';
+        passwordError.style.display = 'none';
+      }
+    });
+
+    // Відправка форми
+    document.getElementById('registrationForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      if (password !== confirmPassword) {
+        document.getElementById('passwordError').style.display = 'block';
+        return;
+      }
+
+      const progressContainer = document.getElementById('progressContainer');
+      const progressBar = document.getElementById('progressBar');
+      const registerButton = document.getElementById('registerButton');
+      const successMessage = document.getElementById('successMessage');
+
+      progressContainer.style.display = 'block';
+      registerButton.disabled = true;
+      registerButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Обробка...';
+
+      try {
+        const response = await fetch('register.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, email, password })
+        });
+
+        const result = await response.json();
+
+        if (!result.success) {
+          throw new Error(result.message || 'Помилка реєстрації');
+        }
+
+        let progress = 0;
+        const interval = setInterval(() => {
+          progress += 10;
+          progressBar.style.width = `${progress}%`;
+
+          if (progress >= 100) {
+            clearInterval(interval);
+            successMessage.style.display = 'block';
+            registerButton.innerHTML = '<i class="fas fa-check"></i> Успішно зареєстровано';
+
+            setTimeout(() => {
+              document.getElementById('registrationForm').reset();
+              progressContainer.style.display = 'none';
+              progressBar.style.width = '0%';
+              successMessage.style.display = 'none';
+              registerButton.disabled = false;
+              registerButton.innerHTML = '<i class="fas fa-user-plus"></i> Зареєструватися';
+              window.location.href = 'login.php';
+            }, 3000);
+          }
+        }, 200);
+      } catch (error) {
+        console.error('Помилка:', error);
+        alert('Сталася помилка при реєстрації: ' + error.message);
+        progressContainer.style.display = 'none';
+        progressBar.style.width = '0%';
+        registerButton.disabled = false;
+        registerButton.innerHTML = '<i class="fas fa-user-plus"></i> Зареєструватися';
+      }
+    });
+  </script>
+</body>
+</html>

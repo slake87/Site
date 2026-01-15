@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Матеріали | Будівельний калькулятор</title>
+    <link rel="stylesheet" href="styles/style5.css">
+</head>
+<body>
+    <!-- Навігаційне меню -->
+    <header class="dashboard-header">
+        <nav class="nav-menu">
+            <ul class="nav-list">
+                <li><a href="estimates.php" class="nav-link">Проєкти</a></li>
+                <li><a href="#" class="nav-link active">Матеріали</a></li>
+                <li><a href="calculations.php" class="nav-link">Розрахунки</a></li>
+                <li><a href="suppliers.php" class="nav-link">Постачальники</a></li>
+            </ul>
+        </nav>
+        <div class="user-panel">
+            <button class="profile" onclick="window.location.href='profile.php'">Мій профіль</button>
+            <span class="username">Привіт, admin_sof!</span>
+            <button class="logout-btn" onclick="window.location.href='login.php'">Вихід</button>
+        </div>
+    </header>
+
+    <!-- Основний вміст -->
+    <main class="dashboard-main">
+         <h3 class="catalog-title">Фундамент</h3> <!-- Додано заголовок каталогу -->
+        <div class="materials-carousel">
+            <button class="carousel-button left" onclick="scrollCarousel(-1)">&#10094;</button>
+            <div class="materials-list">
+                <div class="material-card">
+                    <div class="image-container">
+                        <img src="styles/images/foundation1.jpg" alt="Цілий" class="material-image">
+                        <div class="color-mask" style="background-color: rgba(255, 255, 255, 0);"></div>
+                    </div>
+                    <p class="material-description">Монолітний</p>
+                </div>
+                <div class="material-card">
+                    <div class="image-container">
+                        <img src="styles/images/foundation2.jpeg" alt="Стрічковий" class="material-image">
+                        <div class="color-mask" style="background-color: rgba(255, 255, 255, 0);"></div>
+                    </div>
+                    <p class="material-description">Стрічковий</p>
+                </div>
+                <!-- Додайте більше карток матеріалів за потреби -->
+            </div>
+            <button class="carousel-button right" onclick="scrollCarousel(1)">&#10095;</button>
+        </div>
+
+        <h3 class="catalog-title">Підлога</h3> <!-- Додано заголовок каталогу -->
+        <div class="materials-carousel">
+            <button class="carousel-button left" onclick="scrollCarousel(-1)">&#10094;</button>
+            <div class="materials-list">
+                <div class="material-card">
+                    <div class="image-container">
+                        <img src="styles/images/floor1.jpg" alt="Назва матеріалу 1" class="material-image">
+                        <div class="color-mask" style="background-color: rgba(255, 255, 255, 0);"></div>
+                    </div>
+                    <p class="material-description">Цемент</p>
+                </div>
+                <div class="material-card">
+                    <div class="image-container">
+                        <img src="styles/images/floor2.jpg" alt="Назва матеріалу 2" class="material-image">
+                        <div class="color-mask" style="background-color: rgba(255, 255, 255, 0);"></div>
+                    </div>
+                    <p class="material-description">Плитка</p>
+                </div>
+                <!-- Додайте більше карток матеріалів за потреби -->
+            </div>
+            <button class="carousel-button right" onclick="scrollCarousel(1)">&#10095;</button>
+        </div>    
+<h3 class="catalog-title">Стіни</h3> <!-- Додано заголовок каталогу -->
+        <div class="materials-carousel">
+            <button class="carousel-button left" onclick="scrollCarousel(-1)">&#10094;</button>
+            <div class="materials-list">
+                <div class="material-card">
+                    <div class="image-container">
+                        <img src="styles/images/wall1.webp" alt="Назва матеріалу 1" class="material-image">
+                        <div class="color-mask" style="background-color: rgba(255, 255, 255, 0);"></div>
+                    </div>
+                    <p class="material-description">Цегла</p>
+                    <button class="color-picker" onclick="openColorPicker(this)">Вибрати колір</button>
+                </div>
+                <div class="material-card">
+                    <div class="image-container">
+                        <img src="styles/images/wall2.jpg" alt="Назва матеріалу 2" class="material-image">
+                        <div class="color-mask" style="background-color: rgba(255, 255, 255, 0);"></div>
+                    </div>
+                    <p class="material-description">Цемент</p>
+                    <button class="color-picker" onclick="openColorPicker(this)">Вибрати колір</button>
+                </div>
+                <div class="material-card">
+                    <div class="image-container">
+                        <img src="styles/images/wall3.jpg" alt="Назва матеріалу 3" class="material-image">
+                        <div class="color-mask" style="background-color: rgba(255, 255, 255, 0);"></div>
+                    </div>
+                    <p class="material-description">Газо-цемент</p>
+                    <button class="color-picker" onclick="openColorPicker(this)">Вибрати колір</button>
+                </div>
+                <!-- Додайте більше карток матеріалів за потреби -->
+            </div>
+            <button class="carousel-button right" onclick="scrollCarousel(1)">&#10095;</button>
+        </div>
+
+        <h3 class="catalog-title">Дах</h3> <!-- Додано заголовок каталогу -->
+                <div class="materials-carousel">
+            <button class="carousel-button left" onclick="scrollCarousel(-1)">&#10094;</button>
+            <div class="materials-list">
+                <div class="material-card">
+                    <div class="image-container">
+                        <img src="styles/images/roof1.jpg" alt="Назва матеріалу 1" class="material-image">
+                        <div class="color-mask" style="background-color: rgba(255, 255, 255, 0);"></div>
+                    </div>
+                    <p class="material-description">Плоский</p>
+                </div>
+                <div class="material-card">
+                    <div class="image-container">
+                        <img src="styles/images/roof2.jpg" alt="Назва матеріалу 2" class="material-image">
+                        <div class="color-mask" style="background-color: rgba(255, 255, 255, 0);"></div>
+                    </div>
+                    <p class="material-description">Двохсхилий</p>
+                   
+                </div>
+                <div class="material-card">
+                    <div class="image-container">
+                        <img src="styles/images/roof3.jfif" alt="Назва матеріалу 3" class="material-image">
+                        <div class="color-mask" style="background-color: rgba(255, 255, 255, 0);"></div>
+                    </div>
+                    <p class="material-description">Напів Вальмовий</p>
+                </div>
+                <!-- Додайте більше карток матеріалів за потреби -->
+            </div>
+            <button class="carousel-button right" onclick="scrollCarousel(1)">&#10095;</button>
+        </div>
+    </main>
+    <script>
+        function openColorPicker(button) {
+            const colorInput = document.createElement('input');
+            colorInput.type = 'color';
+            colorInput.oninput = function() {
+                const card = button.parentElement;
+                const mask = card.querySelector('.color-mask');
+                mask.style.backgroundColor = colorInput.value; // Застосування кольору до маски
+                mask.style.opacity = 0.5; // Задаємо непрозорість маски
+            };
+            colorInput.click();
+        }
+
+        function scrollCarousel(direction) {
+            const carousel = document.querySelector('.materials-list');
+            const scrollAmount = 300; // Кількість пікселів для прокручування
+            carousel.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
